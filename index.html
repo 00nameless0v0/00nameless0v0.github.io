@@ -74,13 +74,15 @@
 
   /* ---------- CINEMATIC LOADER / NO FRUIT GRAPHICS ---------- */
   .loader-screen{
+    background:radial-gradient(circle at 50% 42%,rgba(43,92,112,.22),transparent 38%),#05080d;
+
     position:fixed;inset:0;z-index:9999;overflow:hidden;
     display:grid;place-items:center;
     background:
       radial-gradient(circle at 50% 43%,rgba(38,220,207,.13),transparent 17%),
       radial-gradient(circle at 50% 80%,rgba(21,112,151,.18),transparent 40%),
       linear-gradient(180deg,#01070d 0%,#03131f 52%,#01070c 100%);
-    color:#fff;animation:loaderFade .9s ease 10s forwards;
+    color:#fff;
   }
   .loader-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
   .loader-screen::before{
@@ -134,7 +136,8 @@
   .loader-particles span:nth-child(6){left:76%;top:70%;animation-delay:3.4s}
   .loader-particles span:nth-child(7){left:88%;top:82%;animation-delay:1.2s}
   .loader-particles span:nth-child(8){left:94%;top:55%;animation-delay:4s}
-  .loader-reactor{
+  .loader-reactor{filter:drop-shadow(0 0 18px rgba(100,240,220,.12));
+
     position:absolute;left:50%;top:43%;width:230px;height:230px;
     transform:translate(-50%,-50%);display:grid;place-items:center;
   }
@@ -161,7 +164,8 @@
     background:linear-gradient(90deg,transparent,#74f0df,transparent);
     opacity:.5;transform:rotate(27deg);animation:rayOrbit 3.5s linear infinite;
   }
-  .loader-content{
+  .loader-content{position:relative;z-index:4;
+
     position:absolute;left:50%;top:62%;width:min(620px,84vw);
     transform:translateX(-50%);text-align:center;
   }
@@ -224,7 +228,9 @@
   @keyframes statusPulse{50%{opacity:.25;transform:scale(.6)}}
   @keyframes barShine{from{transform:translateX(-90px)}to{transform:translateX(650px)}}
   @media (prefers-reduced-motion:reduce){
-    .loader-screen{animation-delay:.5s}
+    .loader-screen{
+    background:radial-gradient(circle at 50% 42%,rgba(43,92,112,.22),transparent 38%),#05080d;
+animation-delay:.5s}
     .loader-grid,.loader-rays,.loader-reactor *,.loader-horizon *,.loader-particles span,.loader-bar-glow{animation:none!important}
   }
 
@@ -670,41 +676,6 @@ button{
 ::-webkit-scrollbar-thumb{background:#17404d;border-radius:99px;border:2px solid #031019}
 ::-webkit-scrollbar-thumb:hover{background:#236171}
 
-/* ---------- CHAT ---------- */
-.chat-wrap {
-  background: var(--panel); border: 1px solid var(--panel-border); border-radius: var(--radius);
-  box-shadow: var(--shadow); display: flex; flex-direction: column; height: min(560px, 70vh); overflow: hidden;
-}
-.chat-head {
-  display: flex; align-items: center; justify-content: space-between; gap: 10px;
-  padding: 14px 16px; border-bottom: 1px solid var(--panel-border); flex-shrink: 0;
-}
-.chat-peer-count { font-size: 12.5px; color: var(--text-faint); font-weight: 600; }
-.chat-name-input {
-  background: var(--panel-2); border: 1px solid var(--panel-border); color: var(--text);
-  padding: 7px 11px; border-radius: 8px; font-size: 12.5px; font-family: inherit; width: 150px;
-}
-.chat-messages { flex: 1; overflow-y: auto; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
-.chat-msg { max-width: 80%; display: flex; flex-direction: column; gap: 2px; }
-.chat-msg.mine { align-self: flex-end; align-items: flex-end; }
-.chat-msg-meta { font-size: 10.5px; color: var(--text-faint); }
-.chat-msg-bubble {
-  background: var(--panel-2); border: 1px solid var(--panel-border); border-radius: 12px;
-  padding: 8px 12px; font-size: 13.5px; line-height: 1.45; word-break: break-word;
-}
-.chat-msg.mine .chat-msg-bubble { background: linear-gradient(135deg, var(--teal), #2f8f80); color: #03110d; border-color: transparent; }
-.chat-msg.system .chat-msg-bubble { background: transparent; border: none; color: var(--text-faint); font-style: italic; padding: 0; }
-.chat-input-row { display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--panel-border); flex-shrink: 0; }
-.chat-text-input {
-  flex: 1; background: var(--panel-2); border: 1px solid var(--panel-border); color: var(--text);
-  padding: 10px 13px; border-radius: 10px; font-size: 13.5px; font-family: inherit;
-}
-.chat-text-input:disabled, .chat-send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-.chat-send-btn {
-  background: linear-gradient(135deg, var(--gold), #b8871f); color: #241a02; border: none;
-  padding: 10px 18px; border-radius: 10px; font-weight: 700; font-size: 13.5px; cursor: pointer; font-family: inherit;
-}
-.chat-note { padding: 8px 16px 12px; font-size: 11.5px; color: var(--text-faint); text-align: center; flex-shrink: 0; }
 
 /* ---------- PERSISTENT COOL BACKGROUND ---------- */
 .bg-aurora { position: fixed; inset: 0; z-index: -3; overflow: hidden; pointer-events: none; filter: blur(70px); opacity: 0.6; }
@@ -727,6 +698,81 @@ button{
   margin-top: 12px; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: #ffd064;
   min-height: 16px; opacity: 0.9; transition: opacity 0.3s ease;
 }
+
+
+  /* Second loading animation — intentionally kept separate from the original loader */
+  .loader2{position:fixed;inset:0;z-index:9998;background:#05080d;display:flex;align-items:center;justify-content:center;flex-direction:column;overflow:hidden;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .45s ease,visibility .45s ease}
+  .loader2.show{opacity:1;visibility:visible;pointer-events:auto}
+  .loader2-grid{position:absolute;inset:-20%;background-image:linear-gradient(rgba(100,240,220,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(100,240,220,.055) 1px,transparent 1px);background-size:44px 44px;transform:perspective(500px) rotateX(64deg) translateY(20%);animation:l2Grid 5s linear infinite}
+  .loader2-scan{position:absolute;left:0;right:0;top:-15%;height:2px;background:linear-gradient(90deg,transparent,#63ead8,transparent);box-shadow:0 0 22px #63ead8;animation:l2Scan 2.2s ease-in-out infinite}
+  .loader2-orbit{position:absolute;border:1px solid rgba(100,240,220,.25);border-radius:50%;transform:rotateX(67deg);box-shadow:0 0 22px rgba(100,240,220,.06)}
+  .loader2-orbit.o1{width:240px;height:240px;animation:l2Spin 4s linear infinite}
+  .loader2-orbit.o2{width:310px;height:310px;border-color:rgba(100,180,255,.18);animation:l2SpinR 6s linear infinite}
+  .loader2-orbit.o3{width:380px;height:380px;border-style:dashed;border-color:rgba(180,100,255,.14);animation:l2Spin 9s linear infinite}
+  .loader2-core{width:108px;height:108px;border:1px solid rgba(210,255,250,.35);height:96px;border-radius:50%;display:grid;place-items:center;position:relative;background:radial-gradient(circle,#dffff9 0 4%,#64ead8 10%,rgba(60,230,210,.22) 34%,transparent 68%);box-shadow:0 0 35px rgba(100,240,220,.55),0 0 100px rgba(80,180,255,.16);animation:l2Pulse 1.5s ease-in-out infinite}
+  .loader2-core span{width:28px;height:28px;border:2px solid #d9fffa;border-radius:50%;box-shadow:0 0 20px #64ead8;animation:l2Core 1s linear infinite}
+  .loader2-label{margin-top:64px;
+font-size:9px;letter-spacing:.5em;font-weight:900;color:#65ead9;margin-left:.5em}
+  .loader2-title{margin-top:9px;font:700 clamp(25px,5vw,45px)/1 'Cinzel',Georgia,serif;letter-spacing:.13em;color:#f3fbfa;text-shadow:0 0 24px rgba(100,240,220,.18)}
+  .loader2-sub{margin-top:12px;color:#7895a3;font-size:11px;letter-spacing:.2em;text-transform:uppercase}
+  .loader2-bar{width:min(420px,72vw);height:4px;margin-top:22px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden;border:1px solid rgba(255,255,255,.06)}
+  .loader2-bar i{display:block;width:0;height:100%;background:linear-gradient(90deg,#5be4d3,#7ca9ff,#c58cff);box-shadow:0 0 15px rgba(100,240,220,.7);transition:width .15s linear}
+  .loader2-percent{margin-top:9px;color:#d8eeec;font-size:10px;font-weight:800;letter-spacing:.2em}
+  @keyframes l2Grid{to{transform:perspective(500px) rotateX(64deg) translateY(20%) translateY(44px)}}
+  @keyframes l2Scan{0%{top:-15%;opacity:0}15%{opacity:1}85%{opacity:1}100%{top:115%;opacity:0}}
+  @keyframes l2Spin{to{transform:rotateX(67deg) rotateZ(360deg)}}
+  @keyframes l2SpinR{to{transform:rotateX(67deg) rotateZ(-360deg)}}
+  @keyframes l2Pulse{50%{transform:scale(1.08);filter:brightness(1.25)}}
+  .loader2::before{content:"◈  ◇  ◈  ◇  ◈";position:absolute;top:12%;color:rgba(100,240,220,.35);font-size:10px;letter-spacing:1.1em;animation:l2Float 3s ease-in-out infinite}
+  .loader2::after{content:"MARKET LINK  //  SECURE SYNC  //  ONLINE";position:absolute;bottom:8%;font-size:9px;letter-spacing:.28em;color:rgba(170,205,220,.45)}
+  @keyframes l2Core{to{transform:rotate(360deg)}}
+  @keyframes l2Float{50%{transform:translateY(10px);opacity:.7}}
+
+  /* Third loading animation */
+  .loader3{position:fixed;inset:0;z-index:9997;background:radial-gradient(circle at 50% 45%,#18233c 0%,#080c17 42%,#03050a 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;overflow:hidden;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s ease,visibility .3s ease}
+  .loader3.show{opacity:1;visibility:visible;pointer-events:auto}
+  .loader3::before{content:"";position:absolute;width:70vmin;height:70vmin;border:1px solid rgba(124,169,255,.18);border-radius:50%;box-shadow:0 0 80px rgba(100,140,255,.12),inset 0 0 80px rgba(100,140,255,.06);animation:l3Rotate 5s linear infinite}
+  .loader3::before{content:"VALUE BOARD // FINAL CHECK";position:absolute;top:12%;font-size:9px;letter-spacing:.4em;color:rgba(160,205,255,.5);animation:l3Text 1.8s ease-in-out infinite}
+  .loader3::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 5px,rgba(255,255,255,.018) 6px 7px);pointer-events:none}
+  .loader3-core{position:relative;width:105px;height:105px;border-radius:50%;background:conic-gradient(from 0deg,#63ead8,#7ca9ff,#c58cff,#63ead8);padding:2px;box-shadow:0 0 35px rgba(110,180,255,.45);animation:l3Pulse 1.15s ease-in-out infinite}
+  .loader3-core::after{content:"";position:absolute;inset:8px;border-radius:50%;background:#080c15;box-shadow:inset 0 0 28px rgba(100,200,255,.3)}
+  .loader3-core span{position:absolute;inset:0;display:grid;place-items:center;z-index:2;color:#eaf8ff;font-size:12px;font-weight:900;letter-spacing:.15em}
+  .loader3-title{margin-top:28px;color:#f3f7ff;font:700 25px/1 'Cinzel',Georgia,serif;letter-spacing:.18em}
+  .loader3-sub{margin-top:10px;color:#8294b5;font-size:10px;letter-spacing:.28em;text-transform:uppercase}
+  .loader3-dots{margin-top:20px;display:flex;gap:7px}
+  .loader3-dots i{width:6px;height:6px;border-radius:50%;background:#70e8dc;box-shadow:0 0 12px #70e8dc;animation:l3Dot .8s ease-in-out infinite}
+  .loader3-dots i:nth-child(2){animation-delay:.15s}.loader3-dots i:nth-child(3){animation-delay:.3s}
+  @keyframes l3Rotate{to{transform:rotate(360deg)}}
+  @keyframes l3Pulse{50%{transform:scale(1.08);filter:brightness(1.18)}}
+  .loader3-dots::after{content:"SYNC • VERIFY • LAUNCH";position:absolute;margin-top:28px;transform:translateX(-34px);font-size:7px;letter-spacing:.22em;color:rgba(130,160,195,.55)}
+  @keyframes l3Dot{50%{transform:translateY(-6px);opacity:.45}}
+  @keyframes l3Text{50%{opacity:.35;letter-spacing:.55em}}
+
+
+  /* --- LOADING UI UPGRADE --- */
+  .loader2-particles{position:absolute;inset:0;pointer-events:none}
+  .loader2-particles i{position:absolute;width:3px;height:3px;border-radius:50%;background:#8ffcf0;box-shadow:0 0 12px #63ead8;animation:l2Particle 3s ease-in-out infinite}
+  .loader2-particles i:nth-child(1){left:18%;top:30%;animation-delay:.1s}.loader2-particles i:nth-child(2){left:78%;top:24%;animation-delay:.5s}.loader2-particles i:nth-child(3){left:24%;top:72%;animation-delay:1s}.loader2-particles i:nth-child(4){left:83%;top:68%;animation-delay:1.4s}.loader2-particles i:nth-child(5){left:11%;top:54%;animation-delay:1.8s}.loader2-particles i:nth-child(6){left:90%;top:47%;animation-delay:2.1s}
+  @keyframes l2Particle{50%{transform:translateY(-24px) scale(1.8);opacity:.3}}
+  .loader2-mini-grid{display:flex;gap:7px;margin-top:18px;z-index:2}
+  .loader2-mini-grid span{min-width:82px;padding:7px 9px;border:1px solid rgba(100,240,220,.14);background:rgba(8,22,28,.65);border-radius:8px;text-align:center;backdrop-filter:blur(6px)}
+  .loader2-mini-grid b{display:block;color:#d9fffa;font-size:8px;letter-spacing:.14em}.loader2-mini-grid em{display:block;margin-top:3px;color:#63ead8;font-size:7px;font-style:normal;letter-spacing:.18em}
+  .loader3{position:fixed;inset:0;z-index:9997;background:radial-gradient(circle at 50% 48%,#13233a 0%,#070b13 42%,#020409 100%);display:flex;align-items:center;justify-content:center;overflow:hidden;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .45s ease,visibility .45s ease;color:#eaf8ff}
+  .loader3.show{opacity:1;visibility:visible;pointer-events:auto}
+  .loader3-noise{position:absolute;inset:0;background:radial-gradient(circle at 20% 20%,rgba(92,241,220,.12),transparent 28%),radial-gradient(circle at 80% 75%,rgba(130,111,255,.13),transparent 30%),linear-gradient(115deg,transparent 0 47%,rgba(110,220,255,.04) 48% 52%,transparent 53%);animation:l3Bg 7s ease-in-out infinite alternate}
+  @keyframes l3Bg{to{transform:scale(1.08) rotate(-2deg);filter:hue-rotate(25deg)}}
+  .loader3-scanline{position:absolute;left:0;right:0;top:-10%;height:1px;background:linear-gradient(90deg,transparent,#69f5e4,transparent);box-shadow:0 0 20px #69f5e4;animation:l3Scan 2.4s linear infinite;opacity:.75}
+  @keyframes l3Scan{to{top:110%}}
+  .loader3-ring{position:absolute;border:1px solid rgba(105,235,220,.16);border-radius:50%;pointer-events:none}.ring-a{width:70vmin;height:70vmin;animation:l3Spin 16s linear infinite}.ring-b{width:84vmin;height:28vmin;transform:rotate(22deg);border-color:rgba(121,157,255,.18);animation:l3SpinR 11s linear infinite}.ring-c{width:55vmin;height:55vmin;border-style:dashed;border-color:rgba(198,128,255,.15);animation:l3Spin 9s linear infinite reverse}
+  @keyframes l3Spin{to{transform:rotate(360deg)}}@keyframes l3SpinR{to{transform:rotate(-338deg)}}
+  .loader3-card{position:relative;width:min(720px,88vw);padding:22px 24px 18px;border:1px solid rgba(135,205,255,.2);border-radius:18px;background:linear-gradient(145deg,rgba(13,24,39,.92),rgba(5,10,18,.86));box-shadow:0 30px 100px rgba(0,0,0,.5),0 0 55px rgba(75,190,220,.1),inset 0 1px rgba(255,255,255,.08);backdrop-filter:blur(18px);overflow:hidden}
+  .loader3-card:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 20%,rgba(105,235,220,.06) 50%,transparent 80%);transform:translateX(-100%);animation:l3Sweep 2.6s ease-in-out infinite}.loader3-card:after{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,#67efdf,#8c7cff,transparent);animation:l3Glow 2s ease-in-out infinite}
+  @keyframes l3Sweep{55%,100%{transform:translateX(100%)}}@keyframes l3Glow{50%{opacity:.35;filter:brightness(1.7)}}
+  .loader3-top{position:relative;z-index:2;display:flex;align-items:center;gap:10px;color:#7188a5;font-size:8px;font-weight:800;letter-spacing:.18em}.loader3-top>b{color:#9eb4cf}.loader3-logo{width:28px;height:28px;display:grid;place-items:center;border:1px solid rgba(102,240,220,.35);border-radius:8px;color:#75f5e4;font-weight:900;box-shadow:0 0 18px rgba(90,230,210,.15)}.loader3-live{margin-left:auto;color:#72e6d5}.loader3-live i{display:inline-block;width:5px;height:5px;margin-right:5px;border-radius:50%;background:#70efdb;box-shadow:0 0 10px #70efdb;animation:l3Blink 1s infinite}.loader3-live b{color:#9eb4cf}@keyframes l3Blink{50%{opacity:.25}}
+  .loader3-main{position:relative;z-index:2;display:flex;align-items:center;gap:34px;padding:34px 20px 28px}.loader3-core{flex:0 0 148px;width:148px;height:148px;border-radius:50%;display:grid;place-items:center;position:relative;background:conic-gradient(from 0deg,#67f1df,#799cff,#c27dff,#67f1df);box-shadow:0 0 35px rgba(100,230,220,.25),0 0 80px rgba(120,120,255,.12);animation:l3CorePulse 1.5s ease-in-out infinite}.loader3-core:before{content:"";position:absolute;inset:8px;border-radius:50%;background:radial-gradient(circle,#12273a,#060b13 66%);box-shadow:inset 0 0 28px rgba(93,229,215,.18)}.loader3-core:after{content:"";position:absolute;inset:-9px;border:1px dashed rgba(112,240,224,.32);border-radius:50%;animation:l3Spin 6s linear infinite}.loader3-core span{position:relative;z-index:2;font-size:20px;font-weight:900;letter-spacing:.08em}.loader3-core small{position:absolute;z-index:2;margin-top:50px;color:#6ee8d8;font-size:6px;letter-spacing:.25em}.loader3-copy{min-width:0}.loader3-kicker{font-size:8px;color:#6ee4d5;letter-spacing:.3em;font-weight:900}.loader3-title{margin-top:9px;font:700 clamp(27px,5vw,48px)/.95 'Cinzel',Georgia,serif;letter-spacing:.05em;text-shadow:0 0 30px rgba(130,160,255,.18)}.loader3-title strong{color:#8fece0}.loader3-sub{margin-top:14px;color:#7e94b2;font-size:10px;letter-spacing:.22em;text-transform:uppercase}.loader3-stats{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;border-top:1px solid rgba(150,190,220,.1);padding-top:14px;color:#617995;font-size:7px;letter-spacing:.16em}.loader3-stats span{padding:8px 9px;border:1px solid rgba(140,180,220,.08);border-radius:7px;background:rgba(255,255,255,.018)}.loader3-stats b{color:#9cb5d2;margin-right:5px}.loader3-progress{position:relative;z-index:2;height:3px;margin-top:13px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden}.loader3-progress i{display:block;width:0;height:100%;background:linear-gradient(90deg,#64e8d8,#789dff,#c483ff);box-shadow:0 0 12px #76dfe1;animation:l3Progress 1.55s linear forwards}@keyframes l3Progress{to{width:100%}}
+  .loader3-footer{position:absolute;bottom:8%;display:flex;gap:24px;color:#536883;font-size:7px;letter-spacing:.2em}.loader3-footer span:first-child{color:#6bded0}.loader3-footer span{opacity:.75}
+  @keyframes l3CorePulse{50%{transform:scale(1.045);filter:brightness(1.12)}}
+  @media(max-width:600px){.loader3-main{flex-direction:column;gap:22px;padding:25px 8px}.loader3-core{flex-basis:115px;width:115px;height:115px}.loader3-stats{grid-template-columns:repeat(2,1fr)}.loader3-footer{gap:10px;font-size:6px}.loader3-title{text-align:center}.loader3-sub{text-align:center}.loader3-kicker{text-align:center}}
 
 </style>
 </head>
@@ -779,6 +825,47 @@ button{
   </div>
 </div>
 
+<!-- NEW SECONDARY LOADING ANIMATION: runs after the original loader -->
+<div class="loader2" id="loader2" aria-hidden="true">
+  <div class="loader2-grid"></div>
+  <div class="loader2-scan"></div>
+  <div class="loader2-orbit o1"></div>
+  <div class="loader2-orbit o2"></div>
+  <div class="loader2-orbit o3"></div>
+  <div class="loader2-particles"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="loader2-core"><span></span></div>
+  <div class="loader2-label">MARKET ENGINE // ONLINE</div>
+  <div class="loader2-title">SYNCING MARKET</div>
+  <div class="loader2-sub" id="loader2Status">Preparing trade data…</div>
+  <div class="loader2-mini-grid">
+    <span><b>VALUES</b><em>LIVE</em></span>
+    <span><b>DEMAND</b><em>SYNC</em></span>
+    <span><b>FRUITS</b><em>INDEX</em></span>
+  </div>
+  <div class="loader2-bar"><i id="loader2Bar"></i></div>
+  <div class="loader2-percent" id="loader2Percent">0%</div>
+</div>
+<!-- THIRD LOADING ANIMATION -->
+<div class="loader3" id="loader3" aria-hidden="true">
+  <div class="loader3-noise"></div>
+  <div class="loader3-scanline"></div>
+  <div class="loader3-ring ring-a"></div><div class="loader3-ring ring-b"></div><div class="loader3-ring ring-c"></div>
+  <div class="loader3-card">
+    <div class="loader3-top"><span class="loader3-logo">BF</span><span>VALUE BOARD <b>V3.0</b></span><span class="loader3-live"><i></i> ONLINE</span></div>
+    <div class="loader3-main">
+      <div class="loader3-core"><span id="loader3Percent">0%</span><small>READY</small></div>
+      <div class="loader3-copy">
+        <div class="loader3-kicker">FINAL SYSTEM CHECK</div>
+        <div class="loader3-title">ENTER THE<br><strong>TRADING SEAS</strong></div>
+        <div class="loader3-sub" id="loader3Status">Launching value board</div>
+      </div>
+    </div>
+    <div class="loader3-stats"><span><b>01</b> DATA</span><span><b>02</b> VALUES</span><span><b>03</b> UI</span><span><b>04</b> READY</span></div>
+    <div class="loader3-progress"><i></i></div>
+  </div>
+  <div class="loader3-footer"><span>SECURE CONNECTION</span><span>MARKET DATABASE</span><span>ALL SYSTEMS GO</span></div>
+</div>
+
 <div class="hero">
   <div class="bubbles" id="bubbles"></div>
   <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark mode">🌙</button>
@@ -814,7 +901,6 @@ button{
   <div class="tabs">
     <button class="tab-btn active" data-tab="fruits">Devil Fruits</button>
     <button class="tab-btn" data-tab="passes">Store</button>
-    <button class="tab-btn" data-tab="chat">Chat</button>
   </div>
 
   <!-- FRUITS -->
@@ -894,32 +980,11 @@ button{
     <div class="pass-grid" id="shopGrid"></div>
   </section>
 
-  <!-- CHAT -->
-  <section class="panel-view" id="panel-chat">
-    <div class="chat-wrap">
-      <div class="chat-head">
-        <span id="chatPeerCount" class="chat-peer-count">Connecting…</span>
-        <input class="chat-name-input" id="chatNameInput" type="text" maxlength="18" placeholder="Your trader name">
-        <button type="button" class="chat-auth-btn" id="chatAuthBtn">Sign in</button>
-        <button type="button" class="chat-auth-btn" id="chatCreateBtn">Create account</button>
-        <button type="button" class="chat-auth-btn" id="chatLogoutBtn" style="display:none">Log out</button>
-      </div>
-      <div class="chat-messages" id="chatMessages"></div>
-      <div class="chat-input-row">
-        <input class="chat-text-input" id="chatTextInput" type="text" maxlength="240" placeholder="Say something…" disabled>
-        <button class="chat-send-btn" id="chatSendBtn" disabled>Send</button>
-      </div>
-      <div class="chat-note" id="chatNote">Connecting to the live trade chat…</div>
-    </div>
-  </section>
-
   <div class="disclaimer">
     <strong>Real Value vs. Trade Value.</strong> <strong>Real Value</strong> (Beli/Robux) is the official price charged by the in-game Blox Fruit Dealer and Shop — it only changes when the game updates. <strong>Trade Value</strong>, <strong>Trend</strong> and <strong>Player Demand</strong> (1–10) come from the community value list at bloxfruitvaluez.com (snapshot from Sept 25, 2026) and show what players actually trade for, using the permanent-fruit value scale. Every value list is community-set, there's no official one, and different sites disagree by 30% or more, so treat these as a starting point and re-check before a big trade. Live trade values can be refreshed from the connected community API when an API key is configured; if the API is unavailable, the saved values remain visible. The small <strong>role tag</strong> (PvP, Grinding, Mobility, Tanking, Support, All-round) is my own editorial call. <strong>Store</strong> items show real in-game prices for reference; this page can't process purchases. <strong>Chat</strong> uses Supabase accounts and Realtime. Messages are stored in the project database, and authenticated visitors can see new messages live. Blox Fruits is a Roblox game by Gamer Robot Inc.; this page is a fan-made reference and isn't affiliated with them.
   </div>
 
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function() {
   var FRUITS = [
@@ -1112,7 +1177,7 @@ button{
       var legacyBadge = f.status !== "current" ? '<span class="legacy-badge">' + (f.status === "mutation" ? "Mutation" : "Legacy") + '</span>' : "";
       var noteHtml = f.note ? '<div class="fc-note">' + f.note + '</div>' : "";
       var awakenTxt = fmtFrag(f.awakening);
-      var awakenHtml = awakenTxt ? '<div class="fc-awaken">✦ ' + awakenTxt + '</div>' : "";
+      var awakenHtml = '<div class="fc-awaken">✦ Awakening: ' + (awakenTxt || "Not available") + '</div>';
       return '<div class="fruit-card' + (f.status !== "current" ? " legacy-card" : "") + '" style="--rc:var(' + rarityVarMap[f.rarity] + ')">' +
         legacyBadge +
         '<div class="fc-head-row">' +
@@ -1407,23 +1472,60 @@ button{
       [45,"Calibrating trade signals…"],
       [57,"Mapping trading routes…"],
       [68,"Loading store inventory…"],
-      [80,"Opening chat channel…"],
+      [80,"Opening market channel…"],
       [92,"Polishing interface…"],
       [100,"Systems ready."]
     ];
     var i=0;
+    function startLoader3(){
+      var l3=document.getElementById("loader3"), p3=document.getElementById("loader3Percent"), st3=document.getElementById("loader3Status");
+      if(!l3) return;
+      l3.classList.add("show"); l3.setAttribute("aria-hidden","false");
+      var msgs=["Launching value board","Verifying fruit database","Loading market cards","Calibrating demand signals","Final UI check","Ready to trade"];
+      var progress=0, n=0;
+      var timer=setInterval(function(){
+        progress=Math.min(100,progress+10);
+        if(p3) p3.textContent=progress+"%";
+        if(st3 && progress%20===0) st3.textContent=msgs[Math.min(n++,msgs.length-1)];
+        if(progress>=100){
+          clearInterval(timer);
+          setTimeout(function(){l3.classList.remove("show");l3.setAttribute("aria-hidden","true");},420);
+        }
+      },95);
+    }
+    function startLoader2(){
+      var l2=document.getElementById("loader2"), b2=document.getElementById("loader2Bar"), p2=document.getElementById("loader2Percent"), st2=document.getElementById("loader2Status");
+      if(!l2) return;
+      l2.classList.add("show"); l2.setAttribute("aria-hidden","false");
+      var msgs=["Preparing trade data…","Indexing fruit values…","Checking market signals…","Building value board…","Finalizing interface…","Systems ready."];
+      var n=0, progress=0;
+      var timer=setInterval(function(){
+        progress=Math.min(100,progress+4);
+        if(b2) b2.style.width=progress+"%";
+        if(p2) p2.textContent=progress+"%";
+        if(st2 && progress%20===0) st2.textContent=msgs[Math.min(n++,msgs.length-1)];
+        if(progress>=100){
+          clearInterval(timer);
+          setTimeout(function(){l2.classList.remove("show");l2.setAttribute("aria-hidden","true");startLoader3();},300);
+        }
+      },55);
+    }
     function step(){
       if(i>=steps.length){
-        setTimeout(function(){screen.classList.add("hidden"); if (tickerTimer) clearInterval(tickerTimer);},1100);
+        setTimeout(function(){
+          screen.classList.add("hidden");
+          if (tickerTimer) clearInterval(tickerTimer);
+          startLoader2();
+        },300);
         return;
       }
       pct.textContent=steps[i][0]+"%";
       status.textContent=steps[i][1];
       bar.style.width=steps[i][0]+"%";
       i++;
-      setTimeout(step, i<steps.length ? 780 : 800);
+      setTimeout(step, i<steps.length ? 320 : 350);
     }
-    setTimeout(step,600);
+    setTimeout(step,400);
   })();
 
   loadTheme();
@@ -1436,139 +1538,7 @@ button{
   initBgStars();
   initLiveValues();
 
-  /* ---------- LIVE CHAT (Supabase Auth + Realtime) ----------
-     Fill SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY below after creating your own
-     Supabase project. Never put a secret/service_role key in this file. */
-  (function initChat() {
-    var messagesEl = document.getElementById("chatMessages");
-    var peerCountEl = document.getElementById("chatPeerCount");
-    var nameInput = document.getElementById("chatNameInput");
-    var textInput = document.getElementById("chatTextInput");
-    var sendBtn = document.getElementById("chatSendBtn");
-    var noteEl = document.getElementById("chatNote");
-    var authBtn = document.getElementById("chatAuthBtn");
-    var createBtn = document.getElementById("chatCreateBtn");
-    var logoutBtn = document.getElementById("chatLogoutBtn");
-    if (!messagesEl) return;
 
-    var SUPABASE_URL = "YOUR_SUPABASE_URL";
-    var SUPABASE_PUBLISHABLE_KEY = "YOUR_SUPABASE_PUBLISHABLE_KEY";
-    var client = null, currentUser = null, chatChannel = null;
-    var configured = SUPABASE_URL.indexOf("YOUR_") !== 0 && SUPABASE_PUBLISHABLE_KEY.indexOf("YOUR_") !== 0;
-
-    function clearMessages(){ messagesEl.innerHTML = ""; }
-    function addMessage(name, text, mine, ts) {
-      var row = document.createElement("div");
-      row.className = "chat-msg" + (mine ? " mine" : "");
-      var meta = document.createElement("div"); meta.className = "chat-msg-meta";
-      var when = ts ? new Date(ts).toLocaleTimeString([], {hour:"numeric", minute:"2-digit"}) : "";
-      meta.textContent = String(name || "Trader").slice(0,24) + (when ? " · " + when : "");
-      var bubble = document.createElement("div"); bubble.className = "chat-msg-bubble";
-      bubble.textContent = String(text || "").slice(0,240);
-      row.appendChild(meta); row.appendChild(bubble); messagesEl.appendChild(row);
-      messagesEl.scrollTop = messagesEl.scrollHeight;
-    }
-    function addSystemMessage(text) {
-      var row=document.createElement("div"); row.className="chat-msg system";
-      var bubble=document.createElement("div"); bubble.className="chat-msg-bubble"; bubble.textContent=text;
-      row.appendChild(bubble); messagesEl.appendChild(row); messagesEl.scrollTop=messagesEl.scrollHeight;
-    }
-    function setLoggedOutUI(){
-      textInput.disabled=true; sendBtn.disabled=true;
-      authBtn.style.display="inline-block"; createBtn.style.display="inline-block"; logoutBtn.style.display="none";
-      noteEl.textContent="Sign in or create an account to chat.";
-    }
-    function setLoggedInUI(){
-      textInput.disabled=false; sendBtn.disabled=false;
-      authBtn.style.display="none"; createBtn.style.display="none"; logoutBtn.style.display="inline-block";
-      noteEl.textContent="Live chat is connected. Messages are saved in your Supabase database.";
-    }
-    function safeName(){
-      var n=(nameInput.value||"").trim().slice(0,18);
-      if(!n) n=(currentUser && currentUser.email ? currentUser.email.split("@")[0] : "Trader").slice(0,18);
-      nameInput.value=n; return n;
-    }
-    function refreshPeers(){
-      if(!chatChannel) return;
-      var state=chatChannel.presenceState ? chatChannel.presenceState() : {};
-      var count=Object.keys(state||{}).length;
-      peerCountEl.textContent=count<=1 ? "Just you here" : count+" traders here";
-    }
-    async function loadMessages(){
-      if(!client || !currentUser) return;
-      var r=await client.from("chat_messages").select("id,display_name,message,created_at,user_id").order("created_at",{ascending:true}).limit(100);
-      if(r.error){ addSystemMessage("Could not load chat history: "+r.error.message); return; }
-      clearMessages();
-      (r.data||[]).forEach(function(m){ addMessage(m.display_name || "Trader", m.message, m.user_id===currentUser.id, m.created_at); });
-    }
-    async function setupRealtime(){
-      if(chatChannel) { try { await client.removeChannel(chatChannel); } catch(e){} }
-      chatChannel=client.channel("public:trade-chat", {config:{presence:{key:currentUser.id}}});
-      chatChannel.on("postgres_changes", {event:"INSERT", schema:"public", table:"chat_messages"}, function(payload){
-        var m=payload.new; addMessage(m.display_name || "Trader", m.message, m.user_id===currentUser.id, m.created_at);
-      });
-      chatChannel.on("presence", {event:"sync"}, refreshPeers);
-      chatChannel.on("presence", {event:"join"}, refreshPeers);
-      chatChannel.on("presence", {event:"leave"}, refreshPeers);
-      chatChannel.subscribe(async function(status){
-        if(status==="SUBSCRIBED"){
-          await chatChannel.track({user_id:currentUser.id, name:safeName(), online_at:new Date().toISOString()});
-          refreshPeers();
-        }
-      });
-    }
-    async function handleSession(session){
-      currentUser=session && session.user ? session.user : null;
-      if(currentUser){
-        setLoggedInUI();
-        if(!nameInput.value) nameInput.value=(currentUser.email||"Trader").split("@")[0].slice(0,18);
-        await loadMessages(); await setupRealtime();
-      } else {
-        if(chatChannel && client){ try{await client.removeChannel(chatChannel);}catch(e){} }
-        chatChannel=null; setLoggedOutUI();
-      }
-    }
-    async function signIn(){
-      var email=window.prompt("Email:", ""); if(!email) return;
-      var password=window.prompt("Password:", ""); if(!password) return;
-      var r=await client.auth.signInWithPassword({email:email.trim(),password:password});
-      if(r.error) alert("Sign in failed: "+r.error.message);
-    }
-    async function createAccount(){
-      var email=window.prompt("Email for your chat account:", ""); if(!email) return;
-      var password=window.prompt("Choose a password (6+ characters):", ""); if(!password) return;
-      if(password.length<6){ alert("Password must be at least 6 characters."); return; }
-      var r=await client.auth.signUp({email:email.trim(),password:password});
-      if(r.error){ alert("Account creation failed: "+r.error.message); return; }
-      if(r.data && r.data.session) await handleSession(r.data.session);
-      else alert("Account created. Check your email if confirmation is enabled, then sign in.");
-    }
-    async function sendMessage(){
-      var text=(textInput.value||"").trim().slice(0,240); if(!text||!currentUser) return;
-      textInput.value=""; sendBtn.disabled=true;
-      var r=await client.from("chat_messages").insert({user_id:currentUser.id,email:currentUser.email,display_name:safeName(),message:text}).select().single();
-      sendBtn.disabled=false;
-      if(r.error){ textInput.value=text; addSystemMessage("Message could not be sent: "+r.error.message); }
-    }
-
-    authBtn.addEventListener("click", signIn);
-    createBtn.addEventListener("click", createAccount);
-    logoutBtn.addEventListener("click", async function(){ await client.auth.signOut(); });
-    sendBtn.addEventListener("click", sendMessage);
-    textInput.addEventListener("keydown", function(e){ if(e.key==="Enter") sendMessage(); });
-    nameInput.addEventListener("change", function(){ if(chatChannel && currentUser) chatChannel.track({user_id:currentUser.id,name:safeName(),online_at:new Date().toISOString()}); });
-
-    if(!configured || !window.supabase){
-      peerCountEl.textContent="Chat setup needed";
-      noteEl.textContent="Add your Supabase URL and publishable key to enable accounts and live chat.";
-      addSystemMessage("Chat is ready, but Supabase has not been connected yet.");
-      setLoggedOutUI();
-      return;
-    }
-    client=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
-    client.auth.onAuthStateChange(function(event,session){ setTimeout(function(){handleSession(session);},0); });
-    client.auth.getSession().then(function(r){ handleSession(r.data.session); });
-  })();
 })();
 </script>
 
