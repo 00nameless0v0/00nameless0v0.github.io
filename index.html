@@ -80,7 +80,7 @@
       radial-gradient(circle at 50% 43%,rgba(38,220,207,.13),transparent 17%),
       radial-gradient(circle at 50% 80%,rgba(21,112,151,.18),transparent 40%),
       linear-gradient(180deg,#01070d 0%,#03131f 52%,#01070c 100%);
-    color:#fff;animation:loaderFade .9s ease 7.2s forwards;
+    color:#fff;animation:loaderFade .9s ease 10s forwards;
   }
   .loader-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
   .loader-screen::before{
@@ -433,6 +433,14 @@
   }
 
   .fc-divider { height: 1px; background: var(--panel-border); }
+  .tv-value { font-family: 'Cinzel', serif; font-size: 22px; font-weight: 700; color: var(--gold); line-height: 1.1; }
+  .trend-pill { font-size: 10px; font-weight: 700; padding: 2px 9px; border-radius: 999px; letter-spacing: 0.03em; text-transform: uppercase; }
+  .trend-pill.stable { color: var(--teal); background: rgba(69,194,172,0.14); }
+  .trend-pill.overpaid { color: var(--coral); background: rgba(255,122,99,0.14); }
+  .trend-pill.underpaid { color: var(--r-rare); background: rgba(77,151,234,0.14); }
+  .trend-pill.unstable { color: var(--gold); background: rgba(227,178,60,0.14); }
+  .fc-section-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-faint); font-weight: 700; }
+  .fc-section-sub { text-transform: none; letter-spacing: 0; font-weight: 500; opacity: 0.8; }
 
   .fc-prices { display: flex; gap: 10px; }
   .fc-price-block { flex: 1; background: var(--panel-2); border-radius: 10px; padding: 9px 11px; }
@@ -654,27 +662,74 @@ button{
 ::-webkit-scrollbar-thumb{background:#17404d;border-radius:99px;border:2px solid #031019}
 ::-webkit-scrollbar-thumb:hover{background:#236171}
 
+/* ---------- CHAT ---------- */
+.chat-wrap {
+  background: var(--panel); border: 1px solid var(--panel-border); border-radius: var(--radius);
+  box-shadow: var(--shadow); display: flex; flex-direction: column; height: min(560px, 70vh); overflow: hidden;
+}
+.chat-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 14px 16px; border-bottom: 1px solid var(--panel-border); flex-shrink: 0;
+}
+.chat-peer-count { font-size: 12.5px; color: var(--text-faint); font-weight: 600; }
+.chat-name-input {
+  background: var(--panel-2); border: 1px solid var(--panel-border); color: var(--text);
+  padding: 7px 11px; border-radius: 8px; font-size: 12.5px; font-family: inherit; width: 150px;
+}
+.chat-messages { flex: 1; overflow-y: auto; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.chat-msg { max-width: 80%; display: flex; flex-direction: column; gap: 2px; }
+.chat-msg.mine { align-self: flex-end; align-items: flex-end; }
+.chat-msg-meta { font-size: 10.5px; color: var(--text-faint); }
+.chat-msg-bubble {
+  background: var(--panel-2); border: 1px solid var(--panel-border); border-radius: 12px;
+  padding: 8px 12px; font-size: 13.5px; line-height: 1.45; word-break: break-word;
+}
+.chat-msg.mine .chat-msg-bubble { background: linear-gradient(135deg, var(--teal), #2f8f80); color: #03110d; border-color: transparent; }
+.chat-msg.system .chat-msg-bubble { background: transparent; border: none; color: var(--text-faint); font-style: italic; padding: 0; }
+.chat-input-row { display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--panel-border); flex-shrink: 0; }
+.chat-text-input {
+  flex: 1; background: var(--panel-2); border: 1px solid var(--panel-border); color: var(--text);
+  padding: 10px 13px; border-radius: 10px; font-size: 13.5px; font-family: inherit;
+}
+.chat-text-input:disabled, .chat-send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.chat-send-btn {
+  background: linear-gradient(135deg, var(--gold), #b8871f); color: #241a02; border: none;
+  padding: 10px 18px; border-radius: 10px; font-weight: 700; font-size: 13.5px; cursor: pointer; font-family: inherit;
+}
+.chat-note { padding: 8px 16px 12px; font-size: 11.5px; color: var(--text-faint); text-align: center; flex-shrink: 0; }
 
-  /* ---------- MARKET + WEB SEARCH ---------- */
-  .web-search-row { display:flex; gap:10px; align-items:center; margin:0 0 18px; flex-wrap:wrap; }
-  .web-search-input { flex:1; min-width:200px; background:linear-gradient(135deg,var(--panel-2),var(--panel)); border:1px solid rgba(69,194,172,.22); color:var(--text); padding:11px 14px; border-radius:10px; font-size:14px; font-family:inherit; }
-  .web-search-input:focus { outline:2px solid var(--gold); outline-offset:1px; }
-  .market-prices { align-items:stretch; }
-  .fc-market-main { min-width:0; }
-  .fc-price-value.market { font-size:22px; color:var(--gold); text-shadow:0 0 18px rgba(255,194,73,.14); }
-  .fc-price-note { font-size:9px; color:var(--text-faint); margin-top:2px; }
-  .market-meta { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:10px 0 0; padding:9px 0; border-top:1px solid var(--panel-border); border-bottom:1px solid var(--panel-border); }
-  .market-meta>div { display:flex; flex-direction:column; gap:3px; }
-  .meta-label { font-size:9px; text-transform:uppercase; letter-spacing:.08em; color:var(--text-faint); font-weight:800; }
-  .meta-value,.trend-value { font-size:11px; font-weight:800; color:var(--text); }
-  .trend-up { color:#59e3a5!important; }.trend-down { color:#ff7d78!important; }.trend-mixed { color:#f4c15e!important; }.trend-stable { color:#9db7c3!important; }
-  .pass-market { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; padding:10px; border-radius:12px; background:rgba(0,0,0,.12); border:1px solid var(--panel-border); }
-  .pass-market span { display:flex; flex-direction:column; gap:3px; }.pass-market small { font-size:9px; text-transform:uppercase; letter-spacing:.08em; color:var(--text-faint); font-weight:800; }.pass-market b { font-size:13px; }.pass-updated { font-size:10px; color:var(--text-faint); margin-top:8px; }
-  @media (max-width:640px) { .market-meta { grid-template-columns:1fr; } }
+/* ---------- PERSISTENT COOL BACKGROUND ---------- */
+.bg-aurora { position: fixed; inset: 0; z-index: -3; overflow: hidden; pointer-events: none; filter: blur(70px); opacity: 0.6; }
+.bg-blob { position: absolute; border-radius: 50%; }
+.bg-blob.b1 { width: 46vw; height: 46vw; top: -12%; left: -12%; background: radial-gradient(circle, var(--teal), transparent 70%); animation: driftA 26s ease-in-out infinite; }
+.bg-blob.b2 { width: 40vw; height: 40vw; top: 38%; right: -14%; background: radial-gradient(circle, var(--gold), transparent 70%); animation: driftB 32s ease-in-out infinite; }
+.bg-blob.b3 { width: 42vw; height: 42vw; bottom: -16%; left: 18%; background: radial-gradient(circle, var(--r-legendary), transparent 70%); animation: driftC 38s ease-in-out infinite; }
+@keyframes driftA { 0%, 100% { transform: translate(0,0) scale(1); } 50% { transform: translate(6vw, 8vh) scale(1.15); } }
+@keyframes driftB { 0%, 100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-8vw, -6vh) scale(1.12); } }
+@keyframes driftC { 0%, 100% { transform: translate(0,0) scale(1); } 50% { transform: translate(5vw, -8vh) scale(1.2); } }
+.bg-stars { position: fixed; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; }
+.bg-star {
+  position: absolute; width: 2.5px; height: 2.5px; background: var(--gold); border-radius: 50%;
+  box-shadow: 0 0 5px 1px rgba(227,178,60,0.6); animation: bgTwinkle ease-in-out infinite;
+}
+@keyframes bgTwinkle { 0%, 100% { opacity: 0.15; } 50% { opacity: 0.8; } }
+@media (prefers-reduced-motion: reduce) { .bg-blob, .bg-star { animation: none; } }
+
+.loader-ticker {
+  margin-top: 12px; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: #ffd064;
+  min-height: 16px; opacity: 0.9; transition: opacity 0.3s ease;
+}
+
 </style>
 </head>
 <body>
 
+<div class="bg-aurora" aria-hidden="true">
+  <div class="bg-blob b1"></div>
+  <div class="bg-blob b2"></div>
+  <div class="bg-blob b3"></div>
+</div>
+<div class="bg-stars" id="bgStars" aria-hidden="true"></div>
 
 <div class="loader-screen" id="loaderScreen" role="status" aria-live="polite">
   <div class="loader-grid"></div>
@@ -704,6 +759,7 @@ button{
       <span class="loader-status-dot"></span>
       <span id="loaderStatus">Initializing systems…</span>
     </div>
+    <div class="loader-ticker" id="loaderTicker">Kitsune · 600M · Demand 10/10</div>
     <div class="loader-bar-track">
       <div class="loader-bar-fill" id="loaderProgress"></div>
       <div class="loader-bar-glow"></div>
@@ -720,7 +776,7 @@ button{
   <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark mode">🌙</button>
   <span class="eyebrow-badge">Devil Fruit &amp; Gamepass Prices</span>
   <h1 class="hero-title display">The Blox Fruits <em>Value Board</em></h1>
-  <p class="hero-sub">Official Beli and Robux prices for every fruit and gamepass, plus a Demand rating showing how much players want each one.</p>
+  <p class="hero-sub">Official Beli and Robux prices for every fruit and gamepass, plus community trade values, market trend, and player demand — modeled on the popular Blox Fruits value lists.</p>
   <div class="hero-stats">
     <span class="hero-stat"><b id="statFruitCount">–</b>current fruits</span>
     <span class="hero-stat"><b id="statPassCount">–</b>gamepasses</span>
@@ -737,7 +793,8 @@ button{
 
   <div class="tabs">
     <button class="tab-btn active" data-tab="fruits">Devil Fruits</button>
-    <button class="tab-btn" data-tab="passes">Gamepasses</button>
+    <button class="tab-btn" data-tab="passes">Store</button>
+    <button class="tab-btn" data-tab="chat">Chat</button>
   </div>
 
   <!-- FRUITS -->
@@ -752,7 +809,7 @@ button{
         <button class="reset-btn" id="resetBtn">Reset</button>
       </div>
       <div class="search-row">
-        <input class="search-input" id="searchInput" type="text" placeholder="Search this board: Dragon, Kitsune, Dough…">
+        <input class="search-input" id="searchInput" type="text" placeholder="Search a fruit, e.g. Dragon, Kitsune, Dough…">
         <button class="legacy-toggle" id="legacyToggle">Show legacy &amp; mutation fruits</button>
       </div>
       <div class="filter-group">
@@ -776,7 +833,7 @@ button{
         </div>
       </div>
       <div class="filter-group">
-        <div class="filter-label">Demand</div>
+        <div class="filter-label">Player Demand</div>
         <div class="chip-row" id="demandChips">
           <button class="chip active" data-demand="All">All</button>
           <button class="chip" data-demand="high">High (8–10)</button>
@@ -788,8 +845,8 @@ button{
         <div class="filter-label">Sort by</div>
         <div class="sort-control-row">
           <select class="sort-select" id="sortSelect">
-            <option value="marketValue">Trade Value</option>
             <option value="demand">Player Demand</option>
+            <option value="tv">Trade Value</option>
             <option value="robux">Robux Price</option>
             <option value="money">Beli Price</option>
             <option value="rarity" selected>Rarity</option>
@@ -805,43 +862,64 @@ button{
     <div class="empty-state" id="emptyState" style="display:none;">No fruits match your filters.</div>
   </section>
 
-  <!-- GAMEPASSES -->
+  <!-- STORE -->
   <section class="panel-view" id="panel-passes">
     <div class="bundle-banner">
       <span class="label">All six core gamepasses together</span>
       <span class="amount">R$ 5,500</span>
     </div>
+    <div class="section-label">Gamepasses</div>
     <div class="pass-grid" id="passGrid"></div>
+    <div class="section-label" style="margin-top:26px;">Shop Items</div>
+    <div class="pass-grid" id="shopGrid"></div>
   </section>
 
-  <div class="disclaimer"><strong>Market data.</strong> Trade Value, Player Demand, Trend, and Last Updated are community-market fields from the TradeBloxFruit snapshot updated September 25, 2026. Beli and Robux are separate in-game prices. These market figures are estimates, not official Roblox prices, and different trackers can disagree.</div>
+  <!-- CHAT -->
+  <section class="panel-view" id="panel-chat">
+    <div class="chat-wrap">
+      <div class="chat-head">
+        <span id="chatPeerCount" class="chat-peer-count">Connecting…</span>
+        <input class="chat-name-input" id="chatNameInput" type="text" maxlength="18" placeholder="Your trader name">
+      </div>
+      <div class="chat-messages" id="chatMessages"></div>
+      <div class="chat-input-row">
+        <input class="chat-text-input" id="chatTextInput" type="text" maxlength="240" placeholder="Say something…" disabled>
+        <button class="chat-send-btn" id="chatSendBtn" disabled>Send</button>
+      </div>
+      <div class="chat-note" id="chatNote">Connecting to the live trade chat…</div>
+    </div>
+  </section>
+
+  <div class="disclaimer">
+    <strong>Real Value vs. Trade Value.</strong> <strong>Real Value</strong> (Beli/Robux) is the official price charged by the in-game Blox Fruit Dealer and Shop — it only changes when the game updates. <strong>Trade Value</strong>, <strong>Trend</strong> and <strong>Player Demand</strong> (1–10) come from the community value list at bloxfruitvaluez.com (snapshot from Sept 25, 2026) and show what players actually trade for, using the permanent-fruit value scale. Every value list is community-set, there's no official one, and different sites disagree by 30% or more, so treat these as a starting point and re-check before a big trade. This page can't fetch live numbers — published pages here can't call outside sites — so it's a snapshot, not a live feed. The small <strong>role tag</strong> (PvP, Grinding, Mobility, Tanking, Support, All-round) is my own editorial call. <strong>Store</strong> items show real in-game prices for reference; this page can't process purchases. <strong>Chat</strong> is live between whoever has this page open at the same time — nothing is saved, and it needs Contributor-level access on the shared link to send messages. Blox Fruits is a Roblox game by Gamer Robot Inc.; this page is a fan-made reference and isn't affiliated with them.
+  </div>
 
 </div>
 
 <script>
 (function() {
   var FRUITS = [
-    {name:"Rocket", type:"Natural", rarity:"Common", money:5000, robux:50, awakening:null, status:"current", demand:1, role:"Mobility", marketValue:5000, trend:"Stable", updated:"about 3 months ago"},
-    {name:"Spin", type:"Natural", rarity:"Common", money:7500, robux:75, awakening:null, status:"current", demand:1, role:"Grinding", marketValue:7500, trend:"Stable", updated:"over 1 year ago"},
-    {name:"Blade", type:"Natural", rarity:"Common", money:30000, robux:100, awakening:null, status:"current", demand:1, role:"Grinding", marketValue:50000, trend:"Stable", updated:"about 3 months ago"},
-    {name:"Spring", type:"Natural", rarity:"Common", money:60000, robux:180, awakening:null, status:"current", demand:1, role:"Mobility", marketValue:60000, trend:"Stable", updated:"about 5 months ago"},
-    {name:"Bomb", type:"Natural", rarity:"Common", money:80000, robux:220, awakening:null, status:"current", demand:1, role:"Grinding", marketValue:80000, trend:"Stable", updated:"about 5 months ago"},
-    {name:"Spike", type:"Natural", rarity:"Common", money:180000, robux:380, awakening:null, status:"current", demand:1, role:"Grinding", marketValue:180000, trend:"Stable", updated:"about 5 months ago"},
-    {name:"Diamond", type:"Natural", rarity:"Uncommon", money:600000, robux:1000, awakening:null, status:"current", demand:2, role:"Tanking", marketValue:1000000, trend:"Stable", updated:"about 1 month ago"},
-    {name:"Rubber", type:"Natural", rarity:"Rare", money:750000, robux:1200, awakening:null, status:"current", demand:1, role:"PvP", marketValue:700000, trend:"Stable", updated:"about 1 month ago"},
-    {name:"Ghost", type:"Natural", rarity:"Rare", money:940000, robux:1275, awakening:null, status:"current", demand:1, role:"PvP", marketValue:800000, trend:"Underpaid", updated:"about 1 month ago"},
-    {name:"Quake", type:"Natural", rarity:"Legendary", money:1000000, robux:1500, awakening:17000, status:"current", demand:2, role:"Grinding", marketValue:1000000, trend:"Stable", updated:"about 1 month ago"},
-    {name:"Love", type:"Natural", rarity:"Legendary", money:1300000, robux:1700, awakening:null, status:"current", demand:3, role:"Grinding", marketValue:1500000, trend:"Stable", updated:"about 1 month ago"},
-    {name:"Creation", type:"Natural", rarity:"Legendary", money:1400000, robux:1750, awakening:null, status:"current", demand:2, role:"All-round", marketValue:2500000, trend:"Stable", updated:"about 1 month ago"},
-    {name:"Spider", type:"Natural", rarity:"Legendary", money:1500000, robux:1800, awakening:17300, status:"current", demand:2, role:"PvP", marketValue:1500000, trend:"Stable", updated:"about 1 month ago"},
-    {name:"Sound", type:"Natural", rarity:"Legendary", money:1700000, robux:1900, awakening:null, status:"current", demand:4, role:"Grinding", marketValue:2500000, trend:"Stable", updated:"about 1 month ago"},
-    {name:"Portal", type:"Natural", rarity:"Legendary", money:1900000, robux:2000, awakening:null, status:"current", demand:10, role:"Mobility", marketValue:10000000, trend:"Overpaid", updated:"about 1 month ago"},
-    {name:"Pain", type:"Natural", rarity:"Legendary", money:2300000, robux:2200, awakening:null, status:"current", demand:5, role:"PvP", marketValue:10000000, trend:"Stable", updated:"about 1 month ago"},
-    {name:"Gravity", type:"Natural", rarity:"Mythical", money:2500000, robux:2300, awakening:null, status:"current", demand:5, role:"PvP", marketValue:10000000, trend:"Stable", updated:"about 1 month ago"},
-    {name:"Shadow", type:"Natural", rarity:"Mythical", money:2900000, robux:2425, awakening:null, status:"current", demand:5, role:"PvP", marketValue:6500000, trend:"Stable", updated:"2 days ago"},
-    {name:"Venom", type:"Natural", rarity:"Mythical", money:3000000, robux:2450, awakening:null, status:"current", demand:7, role:"PvP", marketValue:20000000, trend:"Stable", updated:"about 1 month ago"},
-    {name:"Spirit", type:"Natural", rarity:"Mythical", money:3400000, robux:2550, awakening:null, status:"current", demand:7, role:"Support", marketValue:10000000, trend:"Stable", updated:"2 days ago"},
-    {name:"Control", type:"Natural", rarity:"Mythical", money:9000000, robux:4000, awakening:null, status:"current", demand:8, role:"PvP", marketValue:150000000, trend:"Stable", updated:"16 days ago"},
+    {name:"Rocket", type:"Natural", rarity:"Common", money:5000, robux:50, awakening:null, status:"current", demand:1, tv:5000, trend:"Stable", role:"Mobility"},
+    {name:"Spin", type:"Natural", rarity:"Common", money:7500, robux:75, awakening:null, status:"current", demand:1, tv:7500, trend:"Stable", role:"Grinding"},
+    {name:"Blade", type:"Natural", rarity:"Common", money:30000, robux:100, awakening:null, status:"current", demand:1, tv:50000, trend:"Stable", role:"Grinding"},
+    {name:"Spring", type:"Natural", rarity:"Common", money:60000, robux:180, awakening:null, status:"current", demand:1, tv:60000, trend:"Stable", role:"Mobility"},
+    {name:"Bomb", type:"Natural", rarity:"Common", money:80000, robux:220, awakening:null, status:"current", demand:1, tv:80000, trend:"Stable", role:"Grinding"},
+    {name:"Spike", type:"Natural", rarity:"Common", money:180000, robux:380, awakening:null, status:"current", demand:1, tv:180000, trend:"Stable", role:"Grinding"},
+    {name:"Diamond", type:"Natural", rarity:"Uncommon", money:600000, robux:1000, awakening:null, status:"current", demand:2, tv:1000000, trend:"Stable", role:"Tanking"},
+    {name:"Rubber", type:"Natural", rarity:"Rare", money:750000, robux:1200, awakening:null, status:"current", demand:1, tv:700000, trend:"Stable", role:"PvP"},
+    {name:"Ghost", type:"Natural", rarity:"Rare", money:940000, robux:1275, awakening:null, status:"current", demand:1, tv:800000, trend:"Underpaid", role:"PvP"},
+    {name:"Quake", type:"Natural", rarity:"Legendary", money:1000000, robux:1500, awakening:17000, status:"current", demand:2, tv:1000000, trend:"Stable", role:"Grinding"},
+    {name:"Love", type:"Natural", rarity:"Legendary", money:1300000, robux:1700, awakening:null, status:"current", demand:3, tv:1500000, trend:"Stable", role:"Grinding"},
+    {name:"Creation", type:"Natural", rarity:"Legendary", money:1400000, robux:1750, awakening:null, status:"current", demand:2, tv:2500000, trend:"Stable", role:"All-round"},
+    {name:"Spider", type:"Natural", rarity:"Legendary", money:1500000, robux:1800, awakening:17300, status:"current", demand:2, tv:1500000, trend:"Stable", role:"PvP"},
+    {name:"Sound", type:"Natural", rarity:"Legendary", money:1700000, robux:1900, awakening:null, status:"current", demand:4, tv:2500000, trend:"Stable", role:"Grinding"},
+    {name:"Portal", type:"Natural", rarity:"Legendary", money:1900000, robux:2000, awakening:null, status:"current", demand:10, tv:10000000, trend:"Overpaid", role:"Mobility"},
+    {name:"Pain", type:"Natural", rarity:"Legendary", money:2300000, robux:2200, awakening:null, status:"current", demand:5, tv:10000000, trend:"Stable", role:"PvP"},
+    {name:"Gravity", type:"Natural", rarity:"Mythical", money:2500000, robux:2300, awakening:null, status:"current", demand:5, tv:10000000, trend:"Stable", role:"PvP"},
+    {name:"Shadow", type:"Natural", rarity:"Mythical", money:2900000, robux:2425, awakening:null, status:"current", demand:5, tv:6500000, trend:"Stable", role:"PvP"},
+    {name:"Venom", type:"Natural", rarity:"Mythical", money:3000000, robux:2450, awakening:null, status:"current", demand:8, tv:20000000, trend:"Stable", role:"PvP"},
+    {name:"Spirit", type:"Natural", rarity:"Mythical", money:3400000, robux:2550, awakening:null, status:"current", demand:7, tv:10000000, trend:"Stable", role:"Support"},
+    {name:"Control", type:"Natural", rarity:"Mythical", money:9000000, robux:4000, awakening:null, status:"current", demand:10, tv:150000000, trend:"Overpaid", role:"PvP"},
     {name:"Kilo", type:"Natural", rarity:"Common", money:5000, robux:50, awakening:null, status:"legacy", note:"Replaced by Rocket"},
     {name:"Chop", type:"Natural", rarity:"Common", money:30000, robux:100, awakening:null, status:"legacy", note:"Replaced by Blade"},
     {name:"Revive", type:"Natural", rarity:"Uncommon", money:550000, robux:975, awakening:null, status:"legacy", note:"Replaced by Ghost"},
@@ -850,44 +928,51 @@ button{
     {name:"String", type:"Natural", rarity:"Legendary", money:1500000, robux:1800, awakening:17300, status:"legacy", note:"Renamed to Spider"},
     {name:"Paw", type:"Natural", rarity:"Legendary", money:2300000, robux:2200, awakening:null, status:"legacy", note:"Renamed to Pain"},
     {name:"Soul", type:"Natural", rarity:"Mythical", money:3400000, robux:2550, awakening:null, status:"legacy", note:"Replaced by Spirit"},
-    {name:"Smoke", type:"Elemental", rarity:"Common", money:100000, robux:250, awakening:null, status:"current", demand:1, role:"Grinding", marketValue:100000, trend:"Stable", updated:"about 3 months ago"},
-    {name:"Flame", type:"Elemental", rarity:"Uncommon", money:250000, robux:550, awakening:14500, status:"current", demand:1, role:"Grinding", marketValue:250000, trend:"Stable", updated:"about 3 months ago"},
-    {name:"Ice", type:"Elemental", rarity:"Uncommon", money:350000, robux:750, awakening:14500, status:"current", demand:2, role:"Grinding", marketValue:550000, trend:"Stable", updated:"about 1 month ago"},
-    {name:"Sand", type:"Elemental", rarity:"Uncommon", money:420000, robux:850, awakening:14500, status:"current", demand:1, role:"Grinding", marketValue:420000, trend:"Stable", updated:"about 1 month ago"},
-    {name:"Dark", type:"Elemental", rarity:"Uncommon", money:500000, robux:950, awakening:14500, status:"current", demand:1, role:"PvP", marketValue:400000, trend:"Stable", updated:"about 1 month ago"},
-    {name:"Light", type:"Elemental", rarity:"Rare", money:650000, robux:1100, awakening:14500, status:"current", demand:2, role:"Grinding", marketValue:800000, trend:"Stable", updated:"about 1 month ago"},
-    {name:"Magma", type:"Elemental", rarity:"Rare", money:960000, robux:1300, awakening:14500, status:"current", demand:5, role:"Grinding", marketValue:1150000, trend:"Overpaid", updated:"about 1 month ago"},
-    {name:"Lightning", type:"Elemental", rarity:"Legendary", money:2100000, robux:2100, awakening:21500, status:"current", demand:6, role:"PvP", marketValue:35000000, trend:"Stable", updated:"2 days ago"},
-    {name:"Blizzard", type:"Elemental", rarity:"Legendary", money:2400000, robux:2250, awakening:null, status:"current", demand:5, role:"Grinding", marketValue:5000000, trend:"Stable", updated:"about 1 month ago"},
-    {name:"Dough", type:"Elemental", rarity:"Mythical", money:2800000, robux:2400, awakening:18500, status:"current", demand:9, role:"PvP", marketValue:30000000, trend:"Overpaid", updated:"2 days ago"},
-    {name:"Gas", type:"Elemental", rarity:"Mythical", money:3200000, robux:2500, awakening:null, status:"current", demand:8, role:"PvP", marketValue:60000000, trend:"Stable", updated:"2 days ago"},
+    {name:"Smoke", type:"Elemental", rarity:"Common", money:100000, robux:250, awakening:null, status:"current", demand:1, tv:100000, trend:"Stable", role:"Grinding"},
+    {name:"Flame", type:"Elemental", rarity:"Uncommon", money:250000, robux:550, awakening:14500, status:"current", demand:1, tv:250000, trend:"Stable", role:"Grinding"},
+    {name:"Ice", type:"Elemental", rarity:"Uncommon", money:350000, robux:750, awakening:14500, status:"current", demand:2, tv:550000, trend:"Stable", role:"Grinding"},
+    {name:"Sand", type:"Elemental", rarity:"Uncommon", money:420000, robux:850, awakening:14500, status:"current", demand:1, tv:420000, trend:"Stable", role:"Grinding"},
+    {name:"Dark", type:"Elemental", rarity:"Uncommon", money:500000, robux:950, awakening:14500, status:"current", demand:1, tv:400000, trend:"Stable", role:"PvP"},
+    {name:"Light", type:"Elemental", rarity:"Rare", money:650000, robux:1100, awakening:14500, status:"current", demand:2, tv:800000, trend:"Stable", role:"Grinding"},
+    {name:"Magma", type:"Elemental", rarity:"Rare", money:960000, robux:1300, awakening:14500, status:"current", demand:5, tv:1150000, trend:"Overpaid", role:"Grinding"},
+    {name:"Lightning", type:"Elemental", rarity:"Legendary", money:2100000, robux:2100, awakening:21500, status:"current", demand:5, tv:40000000, trend:"Unstable", role:"PvP"},
+    {name:"Blizzard", type:"Elemental", rarity:"Legendary", money:2400000, robux:2250, awakening:null, status:"current", demand:5, tv:5000000, trend:"Stable", role:"Grinding"},
+    {name:"Dough", type:"Elemental", rarity:"Mythical", money:2800000, robux:2400, awakening:18500, status:"current", demand:9, tv:30000000, trend:"Stable", role:"PvP"},
+    {name:"Gas", type:"Elemental", rarity:"Mythical", money:3200000, robux:2500, awakening:null, status:"current", demand:8, tv:60000000, trend:"Stable", role:"PvP"},
     {name:"Rumble", type:"Elemental", rarity:"Legendary", money:2100000, robux:2100, awakening:14500, status:"legacy", note:"Renamed to Lightning"},
-    {name:"Eagle", type:"Beast", rarity:"Uncommon", money:550000, robux:975, awakening:null, status:"current", demand:2, role:"Mobility", marketValue:800000, trend:"Stable", updated:"about 1 month ago"},
-    {name:"Buddha", type:"Beast", rarity:"Legendary", money:1200000, robux:1650, awakening:14500, status:"current", demand:10, role:"Grinding", marketValue:10000000, trend:"Overpaid", updated:"about 1 month ago"},
-    {name:"Phoenix", type:"Beast", rarity:"Legendary", money:1800000, robux:2000, awakening:18500, status:"current", demand:3, role:"Support", marketValue:2750000, trend:"Stable", updated:"about 4 months ago"},
-    {name:"Mammoth", type:"Beast", rarity:"Mythical", money:2700000, robux:2350, awakening:null, status:"current", demand:5, role:"Tanking", marketValue:10000000, trend:"Stable", updated:"about 1 month ago"},
-    {name:"T-Rex", type:"Beast", rarity:"Mythical", money:2700000, robux:2350, awakening:null, status:"current", demand:8, role:"PvP", marketValue:20000000, trend:"Stable", updated:"about 1 month ago"},
-    {name:"Tiger", type:"Beast", rarity:"Mythical", money:5000000, robux:3000, awakening:null, status:"current", demand:8, role:"PvP", marketValue:120000000, trend:"Stable", updated:"16 days ago"},
-    {name:"Yeti", type:"Beast", rarity:"Mythical", money:5000000, robux:3000, awakening:null, status:"current", demand:7, role:"PvP", marketValue:110000000, trend:"Stable", updated:"2 days ago"},
-    {name:"Kitsune", type:"Beast", rarity:"Mythical", money:8000000, robux:4000, awakening:null, status:"current", demand:10, role:"PvP", marketValue:600000000, trend:"Stable", updated:"2 days ago"},
-    {name:"West Dragon", type:"Beast", rarity:"Mythical", money:15000000, robux:5000, awakening:null, status:"current", demand:10, role:"All-round", marketValue:3630000000, trend:"Overpaid", updated:"2 days ago"},
-    {name:"East Dragon", type:"Beast", rarity:"Mythical", money:15000000, robux:5000, awakening:null, status:"current", demand:10, role:"All-round", marketValue:3060000000, trend:"Overpaid", updated:"2 days ago"},
+    {name:"Eagle", type:"Beast", rarity:"Uncommon", money:550000, robux:975, awakening:null, status:"current", demand:2, tv:800000, trend:"Stable", role:"Mobility"},
+    {name:"Buddha", type:"Beast", rarity:"Legendary", money:1200000, robux:1650, awakening:14500, status:"current", demand:10, tv:10000000, trend:"Overpaid", role:"Grinding"},
+    {name:"Phoenix", type:"Beast", rarity:"Legendary", money:1800000, robux:2000, awakening:18500, status:"current", demand:3, tv:2750000, trend:"Stable", role:"Support"},
+    {name:"Mammoth", type:"Beast", rarity:"Mythical", money:2700000, robux:2350, awakening:null, status:"current", demand:5, tv:10000000, trend:"Stable", role:"Tanking"},
+    {name:"T-Rex", type:"Beast", rarity:"Mythical", money:2700000, robux:2350, awakening:null, status:"current", demand:8, tv:20000000, trend:"Stable", role:"PvP"},
+    {name:"Tiger", type:"Beast", rarity:"Mythical", money:5000000, robux:3000, awakening:null, status:"current", demand:9, tv:120000000, trend:"Stable", role:"PvP"},
+    {name:"Yeti", type:"Beast", rarity:"Mythical", money:5000000, robux:3000, awakening:null, status:"current", demand:8, tv:110000000, trend:"Stable", role:"PvP"},
+    {name:"Kitsune", type:"Beast", rarity:"Mythical", money:8000000, robux:4000, awakening:null, status:"current", demand:10, tv:600000000, trend:"Overpaid", role:"PvP"},
+    {name:"Dragon", type:"Beast", rarity:"Mythical", money:15000000, robux:5000, awakening:null, status:"current", demand:10, tv:3420000000, trend:"Overpaid", tvNote:"West Dragon 3.42B · East Dragon 2.97B", role:"All-round"},
     {name:"Empyrean (Kitsune)", type:"Beast", rarity:"Mythical", money:null, robux:199, awakening:null, status:"mutation", note:"Mutation upgrade for Kitsune"},
-    {name:"Fiend (Yeti)", type:"Beast", rarity:"Mythical", money:null, robux:1500, awakening:null, status:"mutation", note:"Mutation upgrade for Yeti"},
-    {name:"Werewolf (Tiger)", type:"Beast", rarity:"Mythical", money:null, robux:1500, awakening:null, status:"mutation", note:"Mutation upgrade for Tiger"},
+    {name:"Fiend (Yeti)", type:"Beast", rarity:"Mythical", money:null, robux:1500, awakening:null, status:"mutation", demand:10, tv:1230000000, trend:"Stable", note:"Mutation upgrade for Yeti"},
+    {name:"Werewolf (Tiger)", type:"Beast", rarity:"Mythical", money:null, robux:1500, awakening:null, status:"mutation", demand:10, tv:1320000000, trend:"Stable", note:"Mutation upgrade for Tiger"},
     {name:"Falcon", type:"Beast", rarity:"Uncommon", money:300000, robux:650, awakening:null, status:"legacy", note:"Replaced by Eagle"},
     {name:"Dragon (Classic)", type:"Beast", rarity:"Mythical", money:3500000, robux:2600, awakening:null, status:"legacy", note:"Reworked into current Dragon"},
     {name:"Leopard", type:"Beast", rarity:"Mythical", money:5000000, robux:3000, awakening:null, status:"legacy", note:"Replaced by Tiger"}
   ];
 
   var GAMEPASSES = [
-    {name:"2x Money", robux:450, desc:"Doubles the Beli you earn from NPCs and quests. Doesn't apply to chest drops.", demand:10, marketValue:420000000, trend:"Overpaid", updated:"about 1 month ago"},
-    {name:"Fruit Notifier", robux:2700, desc:"Tells you how far you are from any fruit that spawns in your server.", demand:9, marketValue:4050000000, trend:"Stable", updated:"2 days ago"},
-    {name:"Dark Blade", robux:1200, desc:"Grants the Mythical Dark Blade sword, upgradable through The Son quest.", demand:9, marketValue:990000000, trend:"Stable", updated:"about 1 month ago"},
-    {name:"2x Mastery", robux:450, desc:"Doubles the mastery EXP you earn toward weapons when defeating NPCs.", demand:10, marketValue:420000000, trend:"Overpaid", updated:"about 1 month ago"},
-    {name:"+1 Fruit Storage", robux:400, desc:"Adds one permanent inventory slot for storing duplicate fruits.", stackable:true, demand:10, marketValue:420000000, trend:"Overpaid", updated:"about 1 month ago"},
-    {name:"Fast Boats", robux:350, desc:"Unlocks Miracle and The Sentinel — the two fastest boats in the game.", demand:9, marketValue:300000000, trend:"Overpaid", updated:"about 6 months ago"},
-    {name:"2x Boss Drop Chance", robux:350, desc:"Doubles the chance that a boss drops an item such as a sword or accessory.", demand:5}
+    {name:"2x Money", robux:450, desc:"Doubles the Beli you earn from NPCs and quests. Doesn't apply to chest drops.", demand:10, tv:420000000, trend:"Overpaid"},
+    {name:"Fruit Notifier", robux:2700, desc:"Tells you how far you are from any fruit that spawns in your server.", demand:9, tv:4050000000, trend:"Stable"},
+    {name:"Dark Blade", robux:1200, desc:"Grants the Mythical Dark Blade sword, upgradable through The Son quest.", demand:9, tv:990000000, trend:"Stable"},
+    {name:"2x Mastery", robux:450, desc:"Doubles the mastery EXP you earn toward weapons when defeating NPCs.", demand:10, tv:420000000, trend:"Overpaid"},
+    {name:"+1 Fruit Storage", robux:400, desc:"Adds one permanent inventory slot for storing duplicate fruits.", stackable:true, demand:10, tv:420000000, trend:"Overpaid"},
+    {name:"Fast Boats", robux:350, desc:"Unlocks Miracle and The Sentinel — the two fastest boats in the game.", demand:9, tv:300000000, trend:"Overpaid"},
+    {name:"2x Boss Drop Chance", robux:350, desc:"Doubles the chance that a boss drops an item such as a sword or accessory.", demand:8, tv:300000000, trend:"Overpaid"}
+  ];
+
+  var SHOP_ITEMS = [
+    {name:"5x Legendary Scrolls", robux:800, desc:"Five scrolls that summon a random Legendary boss fight for extra drops and mastery.", demand:3, tv:630000000, trend:"Stable"},
+    {name:"3x Mythical Scrolls", robux:1500, desc:"Three scrolls that summon a random Mythical boss fight — the toughest scroll-only fights.", demand:4, tv:1440000000, trend:"Stable"},
+    {name:"Stat Reset", robux:75, desc:"Wipes your allocated stat points so you can redistribute them."},
+    {name:"Race Reroll", robux:90, desc:"Rerolls your race (Human, Cyborg, Fishman, Mink, etc.) for a fresh spin."},
+    {name:"Respawn Bosses", robux:50, desc:"Instantly respawns every world boss, skipping the wait for a fresh fight."}
   ];
 
   var state = { search: "", rarity: "All", type: "All", demand: "All", showLegacy: false, sortKey: "rarity", sortDir: "desc" };
@@ -919,36 +1004,28 @@ button{
   function demandTier(d) { return d >= 8 ? "high" : d >= 4 ? "mid" : "low"; }
   function demandLabel(d) { return d >= 8 ? "Very High" : d >= 6 ? "High" : d >= 4 ? "Moderate" : "Low"; }
 
-  function fmtMarket(v) {
-    if (v == null) return '<span class="dash">—</span>';
-    if (v >= 1000000000) return (v / 1000000000).toFixed(v % 1000000000 === 0 ? 0 : 2).replace(/\.00$/,"") + "B";
-    if (v >= 1000000) return (v / 1000000).toFixed(v % 1000000 === 0 ? 0 : 2).replace(/\.00$/,"") + "M";
-    if (v >= 1000) return (v / 1000).toFixed(v % 1000 === 0 ? 0 : 1).replace(/\.0$/,"") + "K";
-    return v.toLocaleString("en-US");
+  function fmtTv(v) {
+    if (v == null) return "—";
+    function t(x) { return String(parseFloat(x.toFixed(2))); }
+    if (v >= 1e9) return t(v / 1e9) + "B";
+    if (v >= 1e6) return t(v / 1e6) + "M";
+    if (v >= 1e3) return t(v / 1e3) + "K";
+    return String(v);
   }
-  function trendClass(t) {
-    if (/overpaid|rising|hyped/i.test(t || "")) return "trend-up";
-    if (/underpaid|falling/i.test(t || "")) return "trend-down";
-    if (/fluctuating|unstable/i.test(t || "")) return "trend-mixed";
-    return "trend-stable";
-  }
-  function trendIcon(t) {
-    if (/overpaid|rising|hyped/i.test(t || "")) return "↗";
-    if (/underpaid|falling/i.test(t || "")) return "↘";
-    if (/fluctuating|unstable/i.test(t || "")) return "↕";
-    return "→";
-  }
+
   function demandBlockHtml(item) {
-    if (item.demand == null) return '<div class="demand-block"><div class="demand-head"><span class="demand-label">Player Demand</span><span class="demand-tier low">Not tracked</span></div></div>';
+    if (item.demand == null) {
+      return '<div class="demand-block"><div class="demand-head"><span class="demand-label">Trade Value</span><span class="demand-tier low">Collector item</span></div></div>';
+    }
     var tier = demandTier(item.demand);
-    return '<div class="demand-block"><div class="demand-head"><span class="demand-label">Player Demand</span><span class="demand-tier ' + tier + '">' + item.demand + '/10</span></div>' +
+    var trend = item.trend ? '<span class="trend-pill ' + item.trend.toLowerCase() + '">' + item.trend + '</span>' : "";
+    return '<div class="demand-block">' +
+      '<div class="demand-head"><span class="demand-label">Trade Value</span>' + trend + '</div>' +
+      '<div class="tv-value">' + fmtTv(item.tv) + '</div>' +
+      (item.tvNote ? '<div class="fc-note">' + item.tvNote + '</div>' : '') +
+      '<div class="demand-head" style="margin-top:10px;"><span class="demand-label">Player Demand</span><span class="demand-tier ' + tier + '">' + demandLabel(item.demand) + '</span></div>' +
       '<div class="demand-bar-track"><div class="demand-bar-fill ' + tier + '" style="width:' + (item.demand * 10) + '%"></div></div>' +
-      '<div class="demand-num">' + demandLabel(item.demand) + '</div></div>';
-  }
-  function marketMetaHtml(item) {
-    var trend=item.trend || "Not tracked";
-    return '<div class="market-meta"><div><span class="meta-label">Trend</span><span class="trend-value ' + trendClass(trend) + '">' + trendIcon(trend) + ' ' + trend + '</span></div>' +
-      '<div><span class="meta-label">Last Updated</span><span class="meta-value">' + (item.updated || "Not available") + '</span></div></div>';
+      '<div class="demand-num">' + item.demand + '/10</div></div>';
   }
 
   function getFiltered() {
@@ -967,7 +1044,7 @@ button{
       var dir = state.sortDir === "asc" ? 1 : -1;
       var av, bv;
       if (state.sortKey === "rarity") { av = rarityOrder[a.rarity]; bv = rarityOrder[b.rarity]; }
-      else if (state.sortKey === "demand" || state.sortKey === "money" || state.sortKey === "robux" || state.sortKey === "marketValue") {
+      else if (state.sortKey === "demand" || state.sortKey === "tv" || state.sortKey === "money" || state.sortKey === "robux") {
         av = a[state.sortKey] == null ? -1 : a[state.sortKey];
         bv = b[state.sortKey] == null ? -1 : b[state.sortKey];
       } else { av = a[state.sortKey]; bv = b[state.sortKey]; }
@@ -980,7 +1057,7 @@ button{
 
   function renderStrip() {
     var top = FRUITS.filter(function(f){ return f.status === "current" && f.demand != null; })
-      .slice().sort(function(a,b){ return b.demand - a.demand; }).slice(0, 8);
+      .slice().sort(function(a,b){ return (b.demand - a.demand) || ((b.tv||0) - (a.tv||0)); }).slice(0, 8);
     var strip = document.getElementById("wantedStrip");
     strip.innerHTML = top.map(function(f, i) {
       return '<div class="wanted-chip"><span class="wc-rank">#' + (i+1) + '</span>' +
@@ -1021,11 +1098,11 @@ button{
         '<span class="rarity-pill ' + f.rarity + '">' + f.rarity + '</span>' +
         '</div>' +
         '<div class="fc-divider"></div>' +
-        '<div class="fc-prices market-prices">' +
-        '<div class="fc-price-block fc-market-main"><div class="fc-price-label">Trade Value</div><div class="fc-price-value market">' + fmtMarket(f.marketValue) + '</div><div class="fc-price-note">Community market estimate</div></div>' +
-        '<div class="fc-price-block"><div class="fc-price-label">Beli Price</div><div class="fc-price-value beli">' + fmtMoney(f.money) + '</div></div>' +
+        '<div class="fc-section-label">Real Value <span class="fc-section-sub">(official price)</span></div>' +
+        '<div class="fc-prices">' +
+        '<div class="fc-price-block"><div class="fc-price-label">Beli</div><div class="fc-price-value beli">' + fmtMoney(f.money) + '</div></div>' +
         '<div class="fc-price-block"><div class="fc-price-label">Robux</div><div class="fc-price-value robux">' + fmtRobux(f.robux) + '</div></div>' +
-        '</div>' + marketMetaHtml(f) +
+        '</div>' +
         awakenHtml + noteHtml +
         demandBlockHtml(f) +
         '</div>';
@@ -1038,10 +1115,20 @@ button{
       return '<div class="pass-card">' +
         '<div class="pass-head-row"><div class="pass-name">' + p.name + '</div><div class="pass-price">' + fmtRobux(p.robux) + '</div></div>' +
         '<div class="pass-desc">' + p.desc + '</div>' +
-        '<div class="pass-market"><span><small>Trade Value</small><b>' + fmtMarket(p.marketValue) + '</b></span><span><small>Trend</small><b class="' + trendClass(p.trend) + '">' + trendIcon(p.trend) + ' ' + p.trend + '</b></span></div>' +
-        '<div class="pass-updated">Last Updated: ' + (p.updated || "Not available") + '</div>' +
         (p.stackable ? '<span class="pass-stack">Stackable</span>' : '') +
         demandBlockHtml(p) +
+        '</div>';
+    }).join("");
+  }
+
+  function renderShopItems() {
+    var grid = document.getElementById("shopGrid");
+    if (!grid) return;
+    grid.innerHTML = SHOP_ITEMS.map(function(p) {
+      return '<div class="pass-card">' +
+        '<div class="pass-head-row"><div class="pass-name">' + p.name + '</div><div class="pass-price">' + fmtRobux(p.robux) + '</div></div>' +
+        '<div class="pass-desc">' + p.desc + '</div>' +
+        (p.demand != null ? demandBlockHtml(p) : '') +
         '</div>';
     }).join("");
   }
@@ -1068,8 +1155,24 @@ button{
     }
   }
 
+  function initBgStars() {
+    var container = document.getElementById("bgStars");
+    if (!container) return;
+    var n = window.innerWidth < 640 ? 16 : 30;
+    for (var i = 0; i < n; i++) {
+      var s = document.createElement("div");
+      s.className = "bg-star";
+      s.style.left = (Math.random() * 100) + "%";
+      s.style.top = (Math.random() * 100) + "%";
+      s.style.animationDuration = (2.5 + Math.random() * 3.5) + "s";
+      s.style.animationDelay = (Math.random() * 5) + "s";
+      container.appendChild(s);
+    }
+  }
+
   document.getElementById("searchInput").addEventListener("input", function(e) { state.search = e.target.value; renderFruits(); });
-document.getElementById("legacyToggle").addEventListener("click", function() {
+
+  document.getElementById("legacyToggle").addEventListener("click", function() {
     state.showLegacy = !state.showLegacy;
     this.classList.toggle("active", state.showLegacy);
     renderFruits();
@@ -1132,6 +1235,7 @@ document.getElementById("legacyToggle").addEventListener("click", function() {
       var target = btn.getAttribute("data-tab");
       document.getElementById("panel-fruits").classList.toggle("active", target === "fruits");
       document.getElementById("panel-passes").classList.toggle("active", target === "passes");
+      document.getElementById("panel-chat").classList.toggle("active", target === "chat");
     });
   });
 
@@ -1143,30 +1247,46 @@ document.getElementById("legacyToggle").addEventListener("click", function() {
     var pct=document.getElementById("loaderPercent");
     var status=document.getElementById("loaderStatus");
     var bar=document.getElementById("loaderProgress");
+    var ticker=document.getElementById("loaderTicker");
+    var tickerFacts = FRUITS.filter(function(f){ return f.status==="current" && f.tv; })
+      .sort(function(a,b){ return b.tv - a.tv; }).slice(0, 10)
+      .map(function(f){ return f.name + " · " + fmtTv(f.tv) + " · Demand " + f.demand + "/10"; });
+    var tIdx = 0, tickerTimer = null;
+    if (ticker && tickerFacts.length) {
+      tickerTimer = setInterval(function(){
+        ticker.style.opacity = 0;
+        setTimeout(function(){
+          tIdx = (tIdx + 1) % tickerFacts.length;
+          ticker.textContent = tickerFacts[tIdx];
+          ticker.style.opacity = 0.9;
+        }, 300);
+      }, 900);
+    }
     var steps=[
       [4,"Initializing systems…"],
-      [13,"Opening navigation grid…"],
-      [25,"Connecting value database…"],
-      [38,"Synchronizing market records…"],
-      [51,"Calibrating demand signals…"],
-      [65,"Mapping trading routes…"],
-      [79,"Building value board…"],
-      [91,"Polishing interface…"],
+      [12,"Opening navigation grid…"],
+      [22,"Connecting value database…"],
+      [33,"Synchronizing market records…"],
+      [45,"Calibrating trade signals…"],
+      [57,"Mapping trading routes…"],
+      [68,"Loading store inventory…"],
+      [80,"Opening chat channel…"],
+      [92,"Polishing interface…"],
       [100,"Systems ready."]
     ];
     var i=0;
     function step(){
       if(i>=steps.length){
-        setTimeout(function(){screen.classList.add("hidden");},900);
+        setTimeout(function(){screen.classList.add("hidden"); if (tickerTimer) clearInterval(tickerTimer);},1100);
         return;
       }
       pct.textContent=steps[i][0]+"%";
       status.textContent=steps[i][1];
       bar.style.width=steps[i][0]+"%";
       i++;
-      setTimeout(step, i<steps.length ? 650 : 700);
+      setTimeout(step, i<steps.length ? 780 : 800);
     }
-    setTimeout(step,500);
+    setTimeout(step,600);
   })();
 
   loadTheme();
@@ -1174,7 +1294,112 @@ document.getElementById("legacyToggle").addEventListener("click", function() {
   renderStrip();
   renderFruits();
   renderPasses();
+  renderShopItems();
   initBubbles();
+  initBgStars();
+
+  /* ---------- LIVE CHAT (room capability) ---------- */
+  (function initChat() {
+    var messagesEl = document.getElementById("chatMessages");
+    var peerCountEl = document.getElementById("chatPeerCount");
+    var nameInput = document.getElementById("chatNameInput");
+    var textInput = document.getElementById("chatTextInput");
+    var sendBtn = document.getElementById("chatSendBtn");
+    var noteEl = document.getElementById("chatNote");
+    if (!messagesEl) return;
+
+    var myName = "";
+    try { myName = window.sessionStorage.getItem("bfv_chat_name") || ""; } catch (e) {}
+    if (!myName) { myName = "Trader" + Math.floor(1000 + Math.random() * 9000); }
+    nameInput.value = myName;
+    nameInput.addEventListener("change", function() {
+      myName = (nameInput.value || "").trim().slice(0, 18) || myName;
+      nameInput.value = myName;
+      try { window.sessionStorage.setItem("bfv_chat_name", myName); } catch (e) {}
+    });
+
+    function addMessage(name, text, mine) {
+      var row = document.createElement("div");
+      row.className = "chat-msg" + (mine ? " mine" : "");
+      var meta = document.createElement("div");
+      meta.className = "chat-msg-meta";
+      meta.textContent = name;
+      var bubble = document.createElement("div");
+      bubble.className = "chat-msg-bubble";
+      bubble.textContent = text;
+      row.appendChild(meta);
+      row.appendChild(bubble);
+      messagesEl.appendChild(row);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+    function addSystemMessage(text) {
+      var row = document.createElement("div");
+      row.className = "chat-msg system";
+      var bubble = document.createElement("div");
+      bubble.className = "chat-msg-bubble";
+      bubble.textContent = text;
+      row.appendChild(bubble);
+      messagesEl.appendChild(row);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    if (typeof window.claude === "undefined" || typeof window.claude.use !== "function") {
+      peerCountEl.textContent = "Live chat unavailable";
+      noteEl.textContent = "Live chat isn't available in this preview.";
+      addSystemMessage("Live chat isn't available here.");
+      return;
+    }
+
+    window.claude.use("room").then(function(room) {
+      if (!room) {
+        peerCountEl.textContent = "Live chat unavailable";
+        noteEl.textContent = "Live chat couldn't connect for this view.";
+        addSystemMessage("Live chat couldn't connect.");
+        return;
+      }
+
+      noteEl.textContent = "Messages are live only — nothing is saved, and only people with this page open right now will see them.";
+      textInput.disabled = false;
+      sendBtn.disabled = false;
+      addSystemMessage("Connected. Say hello!");
+
+      room.on("chat", function(msg) {
+        if (!msg || typeof msg.text !== "string") return;
+        addMessage(String(msg.name || "Trader").slice(0, 24), msg.text.slice(0, 500), false);
+      });
+
+      if (typeof room.onPeers === "function") {
+        room.onPeers(function(peers) {
+          var count = peers ? Object.keys(peers).length : 0;
+          peerCountEl.textContent = count <= 1 ? "Just you here" : count + " traders here";
+        });
+      }
+
+      try { room.presence({ name: myName }); } catch (e) {}
+
+      function sendMessage() {
+        var text = (textInput.value || "").trim();
+        if (!text) return;
+        text = text.slice(0, 240);
+        textInput.value = "";
+        addMessage(myName, text, true);
+        try {
+          var result = room.emit("chat", { name: myName, text: text, ts: Date.now() });
+          if (result && typeof result.catch === "function") {
+            result.catch(function() { addSystemMessage("That message may not have sent — you may need Contributor access to chat here."); });
+          }
+        } catch (e) {
+          addSystemMessage("That message may not have sent — you may need Contributor access to chat here.");
+        }
+      }
+      sendBtn.addEventListener("click", sendMessage);
+      textInput.addEventListener("keydown", function(e) { if (e.key === "Enter") sendMessage(); });
+    }).catch(function() {
+      peerCountEl.textContent = "Live chat unavailable";
+      noteEl.textContent = "Live chat couldn't connect for this view.";
+      addSystemMessage("Live chat couldn't connect.");
+    });
+  })();
 })();
 </script>
 
